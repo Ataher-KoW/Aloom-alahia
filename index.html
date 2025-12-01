@@ -75,7 +75,7 @@
     .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.4px; }
     .brand .logo {
       width: 44px; height: 44px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
+      background: url('./assets/images/logo.jpg') center/cover no-repeat, linear-gradient(135deg, var(--accent-blue), var(--accent-red));
       display: grid; place-items: center; color: #fff; font-weight: 700;
     }
     .nav-links { display: flex; align-items: center; gap: 18px; font-weight: 500; }
@@ -243,13 +243,29 @@
       .menu-toggle { display: inline-flex; }
       .hero { background-attachment: scroll; }
       section { padding: 60px 0; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .primary-btn,
+      .hero-actions .pill-btn { width: 100%; justify-content: center; text-align: center; }
+      .navbar { padding: 14px 5%; }
+      .brand .logo { width: 40px; height: 40px; }
+      .service-list { columns: 1; padding-left: 16px; }
+      .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+      .contact-grid { gap: 16px; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(960px, 94%); }
+      .section-header { flex-wrap: wrap; gap: 6px; }
+      .info-row { flex-direction: column; align-items: flex-start; }
+      .catalog-actions .primary-btn { width: 100%; text-align: center; justify-content: center; }
+      .info-row .primary-btn { width: auto; }
     }
   </style>
 </head>
 <body>
   <header class="navbar" id="navbar">
     <div class="brand">
-      <div class="logo">OA</div>
+      <div class="logo"></div>
       <div>
         <div data-i18n="companyName">Oloom Alahya</div>
         <small class="muted" data-i18n="exclusive">Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya</small>
