@@ -1,0 +1,858 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Oloom Alahya - Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya. German-grade medical and laboratory diagnostics with trusted local representation.">
+  <meta name="keywords" content="Oloom Alahya, علوم الأحياء, Bioscientia Institute for Diagnostic Medicine GmbH, Libya diagnostics, medical laboratory, German diagnostics, Bioscientia Libya">
+  <meta name="author" content="Oloom Alahya">
+  <title>Oloom Alahya | علوم الأحياء</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f9;
+      --text: #0f172a;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --accent-red: #c62828;
+      --accent-red-strong: #a11515;
+      --accent-blue: #1e3a8a;
+      --accent-blue-strong: #162d6b;
+      --shadow: 0 14px 45px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0f1720;
+      --surface: #121a23;
+      --text: #f4f7fb;
+      --muted: #cbd5e1;
+      --border: #1f2933;
+      --accent-red: #ff4d4f;
+      --accent-red-strong: #e13c3e;
+      --accent-blue: #5b7cff;
+      --accent-blue-strong: #4a66d8;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+    body.rtl {
+      direction: rtl;
+      font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+    }
+    body.rtl .nav-links { flex-direction: row-reverse; }
+    body.rtl .hero-actions { flex-direction: row-reverse; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, 90%); margin: 0 auto; }
+    section { padding: 80px 0; position: relative; }
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%; z-index: 1000;
+      transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+      background: transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 12px 5%;
+    }
+    [data-theme="dark"] .navbar.scrolled { background: rgba(12, 18, 25, 0.9); }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: 0.4px; }
+    .brand .logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
+      display: grid; place-items: center; color: #fff; font-weight: 700;
+    }
+    .nav-links { display: flex; align-items: center; gap: 18px; font-weight: 500; }
+    .nav-links a { position: relative; padding: 8px 10px; border-radius: 8px; }
+    .nav-links a.active::after, .nav-links a:hover::after {
+      content: ''; position: absolute; left: 10px; right: 10px; bottom: 4px; height: 2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-red)); border-radius: 2px;
+    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .pill-btn {
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      padding: 8px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 600; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pill-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+    .primary-btn {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-red)); color: #fff; border: none;
+      padding: 12px 18px; border-radius: 12px; font-weight: 700; letter-spacing: 0.2px;
+      box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+    .primary-btn:hover { transform: translateY(-2px); opacity: 0.95; }
+    .menu-toggle {
+      display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border);
+      background: var(--surface); justify-content: center; align-items: center; cursor: pointer;
+    }
+    /* Mobile drawer */
+    .mobile-drawer {
+      position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; background: var(--bg);
+      box-shadow: -6px 0 24px rgba(0, 0, 0, 0.1); transition: right 0.3s ease; z-index: 999;
+      padding: 80px 24px 24px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .mobile-drawer.open { right: 0; }
+    .mobile-drawer a { padding: 12px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); }
+    /* Hero */
+    .hero {
+      position: relative; min-height: 90vh; display: grid; align-items: center;
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.55), rgba(17, 24, 39, 0.75)),
+        url('./assets/images/hero-lab.jpg') center/cover no-repeat fixed;
+      color: #fff; overflow: hidden;
+    }
+    /* HERO BACKGROUND IMAGE: hero-lab.jpg */
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(120% 120% at 20% 20%, rgba(255, 255, 255, 0.08), transparent),
+        radial-gradient(90% 90% at 80% 10%, rgba(255, 255, 255, 0.06), transparent);
+      z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 2; padding: 140px 0 100px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1); border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.25);
+      font-weight: 600; letter-spacing: 0.4px;
+    }
+    .hero h1 { font-size: clamp(2.6rem, 4vw, 3.8rem); margin: 18px 0 12px; line-height: 1.1; }
+    .hero p { font-size: 1.05rem; max-width: 660px; color: #e5e7eb; }
+    .hero-actions { display: flex; align-items: center; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+    .scroll-indicator {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      width: 34px; height: 60px; border-radius: 18px; border: 2px solid rgba(255, 255, 255, 0.5);
+      display: grid; place-items: center; opacity: 0.8;
+    }
+    .scroll-indicator span {
+      width: 6px; height: 12px; background: #fff; border-radius: 999px; animation: scroll 1.4s ease-in-out infinite;
+    }
+    @keyframes scroll {
+      0% { transform: translateY(-6px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(8px); opacity: 0; }
+    }
+    /* Sections */
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; }
+    .section-header .dot { width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-blue), var(--accent-red)); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+    h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.2px; }
+    .muted { color: var(--muted); }
+    .split { display: grid; gap: 40px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
+    .about-img, .bio-img {
+      width: 100%; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border);
+    }
+    .about-img::before, .bio-img::before { content: ''; display: block; padding-top: 65%; }
+    /* ABOUT IMAGE PLACEHOLDER: about-oloom.jpg */
+    .about-img::before { background: linear-gradient(135deg, rgba(30, 58, 138, 0.18), rgba(198, 40, 40, 0.18)), url('./assets/images/about-oloom.jpg') center/cover no-repeat; }
+    /* BIOSCIENTIA BACKDROP PLACEHOLDER: germany-lab.jpg */
+    .bio-img::before { background: linear-gradient(135deg, rgba(30, 58, 138, 0.18), rgba(198, 40, 40, 0.18)), url('./assets/images/germany-lab.jpg') center/cover no-repeat; }
+    .bio {
+      background: linear-gradient(180deg, rgba(30, 58, 138, 0.07), rgba(198, 40, 40, 0.05));
+      border-radius: 20px; padding: 32px; position: relative; overflow: hidden; border: 1px solid var(--border);
+    }
+    .bio::after { content: ''; position: absolute; inset: 0; background: url('./assets/images/germany-lab.jpg') center/cover no-repeat; opacity: 0.08; pointer-events: none; }
+    .bio-content { position: relative; z-index: 1; }
+    .services-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .service-card {
+      position: relative; overflow: hidden; border-radius: 16px; background: var(--surface); border: 1px solid var(--border);
+      transition: transform 0.25s ease, box-shadow 0.25s ease; min-height: 260px; display: grid; grid-template-rows: 160px 1fr;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .service-img { position: relative; }
+    .service-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(30, 58, 138, 0.28), rgba(198, 40, 40, 0.28)); opacity: 0.5; }
+    .service-img img { width: 100%; height: 100%; object-fit: cover; }
+    /* SERVICE IMAGE PLACEHOLDERS: service-01.jpg ... service-04.jpg */
+    .service-body { padding: 18px; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 10px; background: rgba(30, 58, 138, 0.08); color: var(--accent-blue); font-weight: 700; font-size: 0.85rem; }
+    [data-theme="dark"] .badge { background: rgba(91, 124, 255, 0.12); }
+    /* Gallery */
+    .gallery-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; border: 1px solid var(--border); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(198, 40, 40, 0.2)); opacity: 0; transition: opacity 0.3s ease; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item:hover::after { opacity: 1; }
+    /* Lightbox */
+    .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); display: grid; place-items: center; z-index: 1200; opacity: 0; visibility: hidden; transition: opacity 0.25s ease; padding: 24px; }
+    .lightbox.open { opacity: 1; visibility: visible; }
+    .lightbox img { max-width: min(90vw, 1100px); max-height: 80vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
+    /* Facts grid */
+    .facts-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 18px; }
+    .fact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); }
+    .fact-card h4 { margin: 0 0 8px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { display: inline-block; padding: 6px 10px; border-radius: 999px; background: rgba(30, 58, 138, 0.08); border: 1px solid var(--border); font-weight: 600; font-size: 0.9rem; }
+    [data-theme="dark"] .chip { background: rgba(91, 124, 255, 0.12); }
+    .service-list { columns: 2; margin: 0; padding-left: 18px; }
+    /* Catalog */
+    .catalog-frame { width: 100%; height: 520px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    /* PDF PLACEHOLDER: assets/pdf/oloom-catalog.pdf */
+    /* Contact */
+    .contact-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .contact-item { border: 1px solid var(--border); background: var(--surface); border-radius: 14px; padding: 18px; box-shadow: var(--shadow); }
+    .contact-item h4 { margin: 0 0 10px; }
+    .contact-item a { color: var(--accent-blue); font-weight: 600; }
+    .contact-lines a { display: inline-block; margin-bottom: 4px; }
+    .catalog-actions { margin-top: 12px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .catalog-actions .primary-btn { align-self: flex-start; }
+    .info-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .social-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .whatsapp-btn, .facebook-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 14px; border-radius: 12px; border: none;
+      color: #fff !important; font-weight: 700; text-decoration: none;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+    .whatsapp-btn { background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 12px 30px rgba(18, 140, 126, 0.25); }
+    .facebook-btn { background: linear-gradient(135deg, #1e3a8a, #2b6cb0); box-shadow: 0 12px 30px rgba(30, 58, 138, 0.25); }
+    .maps-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 14px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, #34a853, #4285f4);
+      color: #fff !important; font-weight: 700; text-decoration: none;
+      box-shadow: 0 12px 30px rgba(66, 133, 244, 0.25);
+    }
+    .footer { padding: 28px 0 34px; text-align: center; color: var(--muted); border-top: 1px solid var(--border); background: var(--surface); margin-top: 40px; }
+    /* Toggles */
+    .toggle { display: inline-flex; align-items: center; gap: 8px; border-radius: 12px; padding: 8px 10px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; transition: transform 0.2s ease; }
+    .toggle:hover { transform: translateY(-1px); }
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.slide-left { transform: translateX(-20px); }
+    .reveal.slide-right { transform: translateX(20px); }
+    .reveal.visible.slide-left, .reveal.visible.slide-right { transform: translateX(0); }
+    /* Responsive */
+    @media (max-width: 1024px) { .split { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .hero { background-attachment: scroll; }
+      section { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="brand">
+      <div class="logo">OA</div>
+      <div>
+        <div data-i18n="companyName">Oloom Alahya</div>
+        <small class="muted" data-i18n="exclusive">Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya</small>
+      </div>
+    </div>
+    <nav class="nav-links" id="nav-links">
+      <a href="#home" class="active" data-i18n="nav.home">Home</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#bioscientia" data-i18n="nav.bioscientia">Bioscientia</a>
+      <a href="#services" data-i18n="nav.services">Products & Services</a>
+      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#catalog" data-i18n="nav.catalog">Catalog</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="toggle" id="lang-toggle"><span role="img" aria-label="language"></span><span id="lang-label">EN</span></button>
+      <button class="toggle" id="theme-toggle"><span id="theme-icon" role="img" aria-label="theme">🌙</span></button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobile-drawer">
+    <a href="#home" data-i18n="nav.home">Home</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#bioscientia" data-i18n="nav.bioscientia">Bioscientia</a>
+    <a href="#services" data-i18n="nav.services">Products & Services</a>
+    <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+    <a href="#catalog" data-i18n="nav.catalog">Catalog</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-content reveal">
+        <div class="eyebrow" data-i18n="eyebrow">German Diagnostics. Local Expertise.</div>
+        <h1 data-i18n="hero.title">Oloom Alahya</h1>
+        <p data-i18n="hero.subtitle">Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya, delivering German-grade medical and laboratory diagnostics with uncompromising precision.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#services" data-i18n="cta.explore">Explore Our Services</a>
+          <button class="pill-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="cta.contact">Talk to Our Team</button>
+        </div>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true"><span></span></div>
+    </section>
+    <section id="about">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="about.tag">Who We Are</div>
+            <h2 data-i18n="about.title">About Oloom Alahya</h2>
+          </div>
+        </div>
+        <div class="split">
+          <div class="card reveal slide-left">
+            <p data-i18n="about.body">Oloom Alahya is the exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya—representing German laboratory excellence for hospitals, clinics, and healthcare providers across the country.</p>
+            <ul>
+              <li data-i18n="about.list.0">Mission: Elevate diagnostic accuracy in Libya with cutting-edge laboratory science.</li>
+              <li data-i18n="about.list.1">Role: Exclusive representation for medical and laboratory services in Libya.</li>
+              <li data-i18n="about.list.2">Promise: German reliability, delivered locally with care.</li>
+            </ul>
+          </div>
+          <div class="about-img reveal slide-right" aria-label="About Oloom Alahya image placeholder"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bioscientia">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="bio.tag">Our Partner</div>
+            <h2 data-i18n="bio.title">Bioscientia — Germany</h2>
+          </div>
+        </div>
+        <div class="bio">
+          <div class="bio-content reveal">
+            <p data-i18n="bio.body">Bioscientia Institute for Diagnostic Medicine GmbH is a leading German diagnostics organization headquartered in Ingelheim, Germany, renowned for scientific rigor, advanced laboratory infrastructure, and a legacy of research excellence.</p>
+            <div class="badge" data-i18n="bio.badge">Accredited. Trusted. Precise.</div>
+            <div class="facts-grid">
+              <div class="fact-card">
+                <h4 data-i18n="bio.hq.title">Headquarters</h4>
+                <p class="muted" data-i18n="bio.hq.body">Ingelheim, Germany — approximately 40 km from Frankfurt International Airport</p>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.founded.title">Founded</h4>
+                <p class="muted" data-i18n="bio.founded.body">1970</p>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.group.title">Group Membership</h4>
+                <p class="muted" data-i18n="bio.group.body">Member of Sonic Healthcare Group</p>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.region.title">Regional Presence</h4>
+                <p class="muted" data-i18n="bio.region.body">Strong foothold in the Middle East since 1982</p>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.scale.title">Scale &amp; Operations</h4>
+                <ul class="muted">
+                  <li data-i18n="bio.scale.0">One of the largest reference laboratories in Europe</li>
+                  <li data-i18n="bio.scale.1">~2,800 professionals (scientists, doctors, medical assistants, technicians)</li>
+                  <li data-i18n="bio.scale.2">~835 laboratory tours per day; sample collection up to 100–200 km/day</li>
+                  <li data-i18n="bio.scale.3">Processing up to 100,000 patients per day</li>
+                </ul>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.accreditations.title">Accreditations &amp; Certifications</h4>
+                <div class="chip-row">
+                  <span class="chip" data-i18n="bio.accreditations.list.0">CAP Accreditation</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.1">CLIA</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.2">INSTAND</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.3">German Society of Clinical Chemistry</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.4">Reference Centre for Hormone Receptors</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.5">German Society of Human Genetics</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.6">EARL</span>
+                  <span class="chip" data-i18n="bio.accreditations.list.7">ISO 15189</span>
+                </div>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.services.title">Laboratory Services</h4>
+                <ul class="muted service-list">
+                  <li data-i18n="bio.services.list.0">Clinical Chemistry</li>
+                  <li data-i18n="bio.services.list.1">Drug Monitoring &amp; Toxicology</li>
+                  <li data-i18n="bio.services.list.2">Hematology &amp; Oncology</li>
+                  <li data-i18n="bio.services.list.3">Infectious Diseases</li>
+                  <li data-i18n="bio.services.list.4">Endocrinology</li>
+                  <li data-i18n="bio.services.list.5">Immunology &amp; Serology</li>
+                  <li data-i18n="bio.services.list.6">Genetics / Human Genetics</li>
+                  <li data-i18n="bio.services.list.7">Histopathology, Cytology &amp; Molecular Diagnostics</li>
+                  <li data-i18n="bio.services.list.8">Integrative Medicine Analysis</li>
+                </ul>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.values.title">Core Values</h4>
+                <ul class="muted">
+                  <li data-i18n="bio.values.list.0">Medicine is first</li>
+                  <li data-i18n="bio.values.list.1">Special focus on education and training</li>
+                  <li data-i18n="bio.values.list.2">Comprehensive diagnostic services</li>
+                  <li data-i18n="bio.values.list.3">Deep analytical insight from laboratory data</li>
+                </ul>
+              </div>
+              <div class="fact-card">
+                <h4 data-i18n="bio.leadership.title">Leadership</h4>
+                <p class="muted" data-i18n="bio.leadership.0"><strong>Prof. Dr. med. Oliver Hahner, MBA</strong> — CEO &amp; Managing Director, Bioscientia GmbH</p>
+                <p class="muted" data-i18n="bio.leadership.1"><strong>Jad Ayoub, MBA, eSCP</strong> — Managing Director, Bioscientia International</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="services.tag">What We Deliver</div>
+            <h2 data-i18n="services.title">Products &amp; Services</h2>
+          </div>
+        </div>
+        <div class="services-grid">
+          <div class="service-card reveal">
+            <div class="service-img">
+              <img src="./assets/images/service-01.jpg" alt="Clinical diagnostics" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div class="badge" data-i18n="services.items.0.title">Clinical Diagnostics</div>
+              <p class="muted" data-i18n="services.items.0.desc">Comprehensive panels for hematology, biochemistry, immunology, and infectious disease testing.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-img">
+              <img src="./assets/images/service-02.jpg" alt="Genetic testing" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div class="badge" data-i18n="services.items.1.title">Genetic &amp; Molecular</div>
+              <p class="muted" data-i18n="services.items.1.desc">Advanced molecular diagnostics, carrier screening, and personalized medicine insights.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-img">
+              <img src="./assets/images/service-03.jpg" alt="Pathology services" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div class="badge" data-i18n="services.items.2.title">Pathology Services</div>
+              <p class="muted" data-i18n="services.items.2.desc">Expert histopathology and cytology supported by German reference laboratories.</p>
+            </div>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-img">
+              <img src="./assets/images/service-04.jpg" alt="Logistics and support" loading="lazy">
+            </div>
+            <div class="service-body">
+              <div class="badge" data-i18n="services.items.3.title">Logistics &amp; Support</div>
+              <p class="muted" data-i18n="services.items.3.desc">Temperature-controlled logistics, result delivery, and continuous scientific support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="gallery.tag">Inside the Lab</div>
+            <h2 data-i18n="gallery.title">Gallery</h2>
+          </div>
+        </div>
+        <div class="gallery-grid">
+          <!-- GALLERY PLACEHOLDERS: gallery-01.jpg ... gallery-16.jpg -->
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-01.jpg" alt="Laboratory photo 1" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-02.jpg" alt="Laboratory photo 2" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-03.jpg" alt="Laboratory photo 3" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-04.jpg" alt="Laboratory photo 4" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-05.jpg" alt="Laboratory photo 5" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-06.jpg" alt="Laboratory photo 6" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-07.jpg" alt="Laboratory photo 7" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-08.jpg" alt="Laboratory photo 8" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-09.jpg" alt="Laboratory photo 9" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-10.jpg" alt="Laboratory photo 10" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-11.jpg" alt="Laboratory photo 11" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-12.jpg" alt="Laboratory photo 12" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-13.jpg" alt="Laboratory photo 13" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-14.jpg" alt="Laboratory photo 14" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-15.jpg" alt="Laboratory photo 15" loading="lazy"></div>
+          <div class="gallery-item reveal"><img src="./assets/images/gallery-16.jpg" alt="Laboratory photo 16" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="catalog.tag">Reference</div>
+            <h2 data-i18n="catalog.title">Official Catalog</h2>
+          </div>
+        </div>
+        <div class="catalog-frame reveal">
+          <iframe src="./assets/pdf/oloom-catalog.pdf" title="Oloom Alahya catalog" width="100%" height="100%"></iframe>
+        </div>
+        <div class="catalog-actions reveal">
+          <a class="primary-btn" href="./assets/pdf/oloom-catalog.pdf" download data-i18n="catalog.download">Download PDF</a>
+          <div class="info-row">
+            <span data-i18n="catalog.more">For more information</span>
+            <a class="primary-btn" href="https://www.bioscientia.de/en/test-list/" target="_blank" rel="noopener" aria-label="Bioscientia test list" data-i18n="catalog.moreCta">click here</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="dot"></div>
+          <div>
+            <div class="muted" data-i18n="contact.tag">Connect With Us</div>
+            <h2 data-i18n="contact.title">Contact</h2>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-item reveal">
+            <h4 data-i18n="contact.address.title">Head Office</h4>
+            <p class="muted" data-i18n="contact.address.body">Tripoli, Libya</p>
+            <a class="maps-btn" data-i18n="contact.locationBtn" href="https://maps.app.goo.gl/pS38obFwPpLnvJUr5" target="_blank" rel="noopener">Location</a>
+          </div>
+          <div class="contact-item reveal">
+            <h4 data-i18n="contact.phone.title">Phone</h4>
+            <div class="contact-lines muted">
+              <a href="tel:+218918808125">091 880 8125</a><br>
+              <a href="tel:+218918452949">091 845 2949</a><br>
+              <a href="tel:+218926299113">092 629 9113</a>
+            </div>
+          </div>
+          <div class="contact-item reveal">
+            <h4 data-i18n="contact.email.title">Email</h4>
+            <div class="contact-lines muted">
+              <a href="mailto:aloom_ahla@yahoo.com">aloom_ahla@yahoo.com</a><br>
+              <a href="mailto:aaza_2000@yahoo.com">aaza_2000@yahoo.com</a>
+            </div>
+          </div>
+          <div class="contact-item reveal">
+            <h4 data-i18n="contact.social.title">Social</h4>
+            <div class="social-row">
+              <a class="whatsapp-btn" href="https://wa.me/218926299113" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="facebook-btn" href="https://www.facebook.com/share/1DGBKdDZqW/" target="_blank" rel="noopener">Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Expanded gallery item">
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div data-i18n="footer">Oloom Alahya — Exclusive Agent of BIOSCIENTIA Germany. All rights reserved.</div>
+    </div>
+  </footer>
+  <script>
+    // Language data
+        const locales = {
+      en: {
+        companyName: "Oloom Alahya",
+        exclusive: "Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya",
+        eyebrow: "German Diagnostics. Local Expertise.",
+        "nav.home": "Home",
+        "nav.about": "About",
+        "nav.bioscientia": "Bioscientia",
+        "nav.services": "Products & Services",
+        "nav.gallery": "Gallery",
+        "nav.catalog": "Catalog",
+        "nav.contact": "Contact",
+        "hero.title": "Oloom Alahya",
+        "hero.subtitle": "Exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya, delivering German-grade medical and laboratory diagnostics with uncompromising precision.",
+        "cta.explore": "Explore Our Services",
+        "cta.contact": "Talk to Our Team",
+        "about.tag": "Who We Are",
+        "about.title": "About Oloom Alahya",
+        "about.body": "Oloom Alahya is the exclusive agent of Bioscientia Institute for Diagnostic Medicine GmbH in Tripoli, Libya—representing German laboratory excellence for hospitals, clinics, and healthcare providers across the country.",
+        "about.list.0": "Mission: Elevate diagnostic accuracy in Libya with cutting-edge laboratory science.",
+        "about.list.1": "Role: Exclusive representation for medical and laboratory services in Libya.",
+        "about.list.2": "Promise: German reliability, delivered locally with care.",
+        "bio.tag": "Our Partner",
+        "bio.title": "Bioscientia — Germany",
+        "bio.body": "Bioscientia Institute for Diagnostic Medicine GmbH is a leading German diagnostics organization headquartered in Ingelheim, Germany, renowned for scientific rigor, advanced laboratory infrastructure, and a legacy of research excellence.",
+        "bio.badge": "Accredited. Trusted. Precise.",
+        "bio.hq.title": "Headquarters",
+        "bio.hq.body": "Ingelheim, Germany — approximately 40 km from Frankfurt International Airport",
+        "bio.founded.title": "Founded",
+        "bio.founded.body": "1970",
+        "bio.group.title": "Group Membership",
+        "bio.group.body": "Member of Sonic Healthcare Group",
+        "bio.region.title": "Regional Presence",
+        "bio.region.body": "Strong foothold in the Middle East since 1982",
+        "bio.scale.title": "Scale & Operations",
+        "bio.scale.0": "One of the largest reference laboratories in Europe",
+        "bio.scale.1": "~2,800 professionals (scientists, doctors, medical assistants, technicians)",
+        "bio.scale.2": "~835 laboratory tours per day; sample collection up to 100–200 km/day",
+        "bio.scale.3": "Processing up to 100,000 patients per day",
+        "bio.accreditations.title": "Accreditations & Certifications",
+        "bio.accreditations.list.0": "CAP Accreditation",
+        "bio.accreditations.list.1": "CLIA",
+        "bio.accreditations.list.2": "INSTAND",
+        "bio.accreditations.list.3": "German Society of Clinical Chemistry",
+        "bio.accreditations.list.4": "Reference Centre for Hormone Receptors",
+        "bio.accreditations.list.5": "German Society of Human Genetics",
+        "bio.accreditations.list.6": "EARL",
+        "bio.accreditations.list.7": "ISO 15189",
+        "bio.services.title": "Laboratory Services",
+        "bio.services.list.0": "Clinical Chemistry",
+        "bio.services.list.1": "Drug Monitoring & Toxicology",
+        "bio.services.list.2": "Hematology & Oncology",
+        "bio.services.list.3": "Infectious Diseases",
+        "bio.services.list.4": "Endocrinology",
+        "bio.services.list.5": "Immunology & Serology",
+        "bio.services.list.6": "Genetics / Human Genetics",
+        "bio.services.list.7": "Histopathology, Cytology & Molecular Diagnostics",
+        "bio.services.list.8": "Integrative Medicine Analysis",
+        "bio.values.title": "Core Values",
+        "bio.values.list.0": "Medicine is first",
+        "bio.values.list.1": "Special focus on education and training",
+        "bio.values.list.2": "Comprehensive diagnostic services",
+        "bio.values.list.3": "Deep analytical insight from laboratory data",
+        "bio.leadership.title": "Leadership",
+        "bio.leadership.0": "Prof. Dr. med. Oliver Hahner, MBA — CEO & Managing Director, Bioscientia GmbH",
+        "bio.leadership.1": "Jad Ayoub, MBA, eSCP — Managing Director, Bioscientia International",
+        "services.tag": "What We Deliver",
+        "services.title": "Products & Services",
+        "services.items.0.title": "Clinical Diagnostics",
+        "services.items.0.desc": "Comprehensive panels for hematology, biochemistry, immunology, and infectious disease testing.",
+        "services.items.1.title": "Genetic & Molecular",
+        "services.items.1.desc": "Advanced molecular diagnostics, carrier screening, and personalized medicine insights.",
+        "services.items.2.title": "Pathology Services",
+        "services.items.2.desc": "Expert histopathology and cytology supported by German reference laboratories.",
+        "services.items.3.title": "Logistics & Support",
+        "services.items.3.desc": "Temperature-controlled logistics, result delivery, and continuous scientific support.",
+        "gallery.tag": "Inside the Lab",
+        "gallery.title": "Gallery",
+        "catalog.tag": "Reference",
+        "catalog.title": "Official Catalog",
+        "catalog.download": "Download PDF",
+        "catalog.more": "For more information",
+        "catalog.moreCta": "click here",
+        "catalog.more": "For more information",
+        "catalog.moreCta": "click here",
+        "contact.tag": "Connect With Us",
+        "contact.title": "Contact",
+        "contact.address.title": "Head Office",
+        "contact.address.body": "Tripoli, Libya",
+        "contact.phone.title": "Phone",
+        "contact.phone.body": "091 880 8125 • 091 845 2949 • 092 629 9113",
+        "contact.email.title": "Email",
+        "contact.email.body": "aloom_ahla@yahoo.com • aaza_2000@yahoo.com",
+        "contact.locationBtn": "Location",
+        "contact.email.body": "aloom_ahla@yahoo.com • aaza_2000@yahoo.com",
+        "contact.locationBtn": "Location",
+        "contact.social.body": "LinkedIn • Twitter • WhatsApp",
+        footer: "Oloom Alahya — Exclusive Agent of BIOSCIENTIA Germany. All rights reserved."
+      },
+      ar: {
+        companyName: "علوم الأحياء",
+        exclusive: "الوكيل الحصري لـ Bioscientia Institute for Diagnostic Medicine GmbH في طرابلس، ليبيا",
+        eyebrow: "تشخيصات ألمانية بخبرة محلية",
+        "nav.home": "الرئيسية",
+        "nav.about": "من نحن",
+        "nav.bioscientia": "بيوسينشيا",
+        "nav.services": "المنتجات والخدمات",
+        "nav.gallery": "المعرض",
+        "nav.catalog": "الكتيب",
+        "nav.contact": "تواصل معنا",
+        "hero.title": "علوم الأحياء",
+        "hero.subtitle": "الوكيل الحصري لـ Bioscientia Institute for Diagnostic Medicine GmbH في طرابلس، ليبيا، نقدم تشخيصات مخبرية ألمانية المستوى بدقة لا تقبل التنازل.",
+        "cta.explore": "استكشف خدماتنا",
+        "cta.contact": "تواصل مع فريقنا",
+        "about.tag": "من نحن",
+        "about.title": "عن علوم الأحياء",
+        "about.body": "علوم الأحياء هي الوكيل الحصري لـ Bioscientia Institute for Diagnostic Medicine GmbH في طرابلس، ليبيا — نمثل التفوق المخبري الألماني للمستشفيات والمراكز الصحية في البلاد.",
+        "about.list.0": "رسالتنا: رفع دقة التشخيص في ليبيا بالعلم المخبري المتقدم.",
+        "about.list.1": "دورنا: التمثيل الحصري للخدمات الطبية والمخبرية في ليبيا.",
+        "about.list.2": "وعدنا: موثوقية ألمانية بخدمة محلية.",
+        "bio.tag": "شريكنا",
+        "bio.title": "بيوسينشيا — ألمانيا",
+        "bio.body": "تعد Bioscientia Institute for Diagnostic Medicine GmbH منظمة تشخيص ألمانية رائدة مقرها إنغيلهايم، ألمانيا، معروفة بالصرامة العلمية والبنية التحتية المتقدمة وإرث البحث العلمي.",
+        "bio.badge": "معتمدون. موثوقون. دقيقون.",
+        "bio.hq.title": "المقر الرئيسي",
+        "bio.hq.body": "إنغيلهايم، ألمانيا — على بُعد نحو 40 كم من مطار فرانكفورت الدولي",
+        "bio.founded.title": "تأسست",
+        "bio.founded.body": "1970",
+        "bio.group.title": "الانتماء المؤسسي",
+        "bio.group.body": "عضو في مجموعة Sonic Healthcare",
+        "bio.region.title": "الحضور الإقليمي",
+        "bio.region.body": "وجود قوي في الشرق الأوسط منذ 1982",
+        "bio.scale.title": "الحجم والعمليات",
+        "bio.scale.0": "من أكبر المختبرات المرجعية في أوروبا",
+        "bio.scale.1": "نحو 2,800 محترف (علماء، أطباء، مساعدين طبيين، فنيين)",
+        "bio.scale.2": "حوالي 835 جولة مخبرية يوميًا؛ جمع عينات لمسافة 100–200 كم يوميًا",
+        "bio.scale.3": "معالجة ما يصل إلى 100,000 مريض يوميًا",
+        "bio.accreditations.title": "الاعتمادات والشهادات",
+        "bio.accreditations.list.0": "اعتماد CAP",
+        "bio.accreditations.list.1": "CLIA",
+        "bio.accreditations.list.2": "INSTAND",
+        "bio.accreditations.list.3": "الجمعية الألمانية للكيمياء السريرية",
+        "bio.accreditations.list.4": "مركز مرجعي لمستقبلات الهرمونات",
+        "bio.accreditations.list.5": "الجمعية الألمانية لعلم الوراثة البشرية",
+        "bio.accreditations.list.6": "EARL",
+        "bio.accreditations.list.7": "ISO 15189",
+        "bio.services.title": "خدمات المختبر",
+        "bio.services.list.0": "الكيمياء السريرية",
+        "bio.services.list.1": "مراقبة الأدوية والسموم",
+        "bio.services.list.2": "أمراض الدم والأورام",
+        "bio.services.list.3": "الأمراض المعدية",
+        "bio.services.list.4": "الغدد الصماء",
+        "bio.services.list.5": "المناعة والسيرولوجيا",
+        "bio.services.list.6": "الوراثة / الوراثة البشرية",
+        "bio.services.list.7": "علم الأمراض، الخلايا والتشخيص الجزيئي",
+        "bio.services.list.8": "تحليل الطب التكاملي",
+        "bio.values.title": "القيم الأساسية",
+        "bio.values.list.0": "الطب أولاً",
+        "bio.values.list.1": "تركيز خاص على التعليم والتدريب",
+        "bio.values.list.2": "خدمات تشخيصية شاملة",
+        "bio.values.list.3": "رؤى تحليلية عميقة من بيانات المختبر",
+        "bio.leadership.title": "القيادة",
+        "bio.leadership.0": "الأستاذ الدكتور أوليفر هانر، MBA — الرئيس التنفيذي والمدير العام، بيوسنتشيا GmbH",
+        "bio.leadership.1": "جاد أيوب، MBA, eSCP — المدير العام، بيوسنتشيا الدولية",
+        "services.tag": "ماذا نقدم",
+        "services.title": "المنتجات والخدمات",
+        "services.items.0.title": "التشخيصات السريرية",
+        "services.items.0.desc": "حزم شاملة لأمراض الدم والكيمياء المناعية والفحوصات المعدية.",
+        "services.items.1.title": "الاختبارات الجينية والجزيئية",
+        "services.items.1.desc": "تشخيصات جزيئية متقدمة، وفحوصات حاملي الأمراض، ودعم الطب الشخصي.",
+        "services.items.2.title": "خدمات علم الأمراض",
+        "services.items.2.desc": "تشريح مرضي وخلايا متقدم بدعم من مختبرات ألمانية مرجعية.",
+        "services.items.3.title": "الدعم واللوجستيات",
+        "services.items.3.desc": "نقل حراري مضبوط، وتوصيل النتائج، ودعم علمي مستمر.",
+        "gallery.tag": "داخل المختبر",
+        "gallery.title": "المعرض",
+        "catalog.tag": "مرجع",
+        "catalog.title": "الكتيب الرسمي",
+        "catalog.download": "تحميل الكتيب",
+        "catalog.more": "لمزيد من المعلومات",
+        "catalog.moreCta": "اضغط هنا",
+        "catalog.more": "لمزيد من المعلومات",
+        "catalog.moreCta": "اضغط هنا",
+        "contact.tag": "تواصل معنا",
+        "contact.title": "الاتصال",
+        "contact.address.title": "المقر الرئيسي",
+        "contact.address.body": "طرابلس، ليبيا",
+        "contact.phone.title": "الهاتف",
+        "contact.phone.body": "091 880 8125 • 091 845 2949 • 092 629 9113",
+        "contact.email.title": "البريد الإلكتروني",
+        "contact.email.body": "aloom_ahla@yahoo.com • aaza_2000@yahoo.com",
+        "contact.locationBtn": "الموقع",
+        "contact.social.title": "منصاتنا",
+        "contact.social.body": "لينكدإن • تويتر • واتساب",
+        footer: "علوم الأحياء — الوكيل الحصري لشركة BIOSCIENTIA ألمانيا. جميع الحقوق محفوظة."
+      }
+    };
+
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const langToggle = document.getElementById('lang-toggle');
+    const langLabel = document.getElementById('lang-label');
+    const navLinks = document.querySelectorAll('.nav-links a, .mobile-drawer a');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbar = document.getElementById('navbar');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const hero = document.querySelector('.hero');
+
+    // Theme handling
+    const savedTheme = localStorage.getItem('oa-theme') || 'light';
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = htmlEl.dataset.theme === 'light' ? 'dark' : 'light';
+      setTheme(nextTheme);
+      localStorage.setItem('oa-theme', nextTheme);
+    });
+
+    function setTheme(theme) {
+      htmlEl.dataset.theme = theme;
+      themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+    }
+
+    // Language handling
+    const savedLang = localStorage.getItem('oa-lang') || 'en';
+    setLanguage(savedLang);
+
+    langToggle.addEventListener('click', () => {
+      const nextLang = htmlEl.lang === 'en' ? 'ar' : 'en';
+      setLanguage(nextLang);
+      localStorage.setItem('oa-lang', nextLang);
+    });
+
+    function setLanguage(lang) {
+      htmlEl.lang = lang;
+      document.body.classList.toggle('rtl', lang === 'ar');
+      langLabel.textContent = lang === 'ar' ? 'EN' : 'ع';
+      const dict = locales[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+    }
+
+    // Smooth active link state
+    const sectionIds = ['home','about','bioscientia','services','gallery','catalog','contact'];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { threshold: 0.55 });
+    sectionIds.forEach(id => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    // Navbar scroll behavior
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Mobile drawer
+    menuToggle.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('open');
+    });
+    navLinks.forEach(link => link.addEventListener('click', () => mobileDrawer.classList.remove('open')));
+
+    // Gallery lightbox
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('open');
+      });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+
+    // Hero parallax
+    window.addEventListener('scroll', () => {
+      const offset = window.scrollY * 0.35;
+      hero.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+    });
+  </script>
+</body>
+</html>
